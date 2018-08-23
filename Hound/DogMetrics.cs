@@ -1,4 +1,5 @@
-﻿using Hound.Datadog;
+﻿using Hound.Config;
+using Hound.Datadog;
 using Hound.Metrics;
 using Hound.Result;
 using System.Diagnostics;
@@ -12,6 +13,12 @@ namespace Hound
     {
         private readonly DatadogMetricApi _datadogApi;
         private readonly string _prefix;
+
+        public DogMetrics(string prefix = "hound")
+        {
+            _datadogApi = new DatadogMetricApi(Configuration.GetApiKey());
+            _prefix = prefix.ToLowerInvariant();
+        }
 
         public DogMetrics(string apiKey, string prefix = "hound")
         {
